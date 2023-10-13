@@ -7,7 +7,7 @@ variable "AUTHOR_NAME" {
 }
 
 variable "AUTHOR_EMAIL" {
-  default = "hominsu@foxmail.com"
+  default = "homingso@foxmail.com"
 }
 
 variable "VERSION" {
@@ -16,22 +16,9 @@ variable "VERSION" {
 
 group "default" {
   targets = [
-    "moses-base",
     "moses-devel",
     "moses-runtime",
   ]
-}
-
-target "moses-base" {
-  context    = "."
-  dockerfile = "base/Dockerfile"
-  args       = {
-    AUTHOR_NAME  = "${AUTHOR_NAME}"
-    AUTHOR_EMAIL = "${AUTHOR_EMAIL}"
-    REPO         = "${REPO}"
-    VERSION      = "$(VERSION)"
-  }
-  platforms = ["linux/amd64"]
 }
 
 target "moses-devel" {
@@ -52,7 +39,6 @@ target "moses-devel" {
 
 target "moses-runtime" {
   contexts = {
-    "${REPO}/moses:base"  = "target:moses-base"
     "${REPO}/moses:devel" = "target:moses-devel"
   }
   dockerfile = "runtime/Dockerfile"
