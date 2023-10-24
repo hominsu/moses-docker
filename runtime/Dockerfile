@@ -12,13 +12,14 @@ ARG VERSION
 # label
 LABEL author=${AUTHOR_NAME} email=${AUTHOR_EMAIL} version=${VERSION}
 
+ENV RUNTIME_DEPS="default-jre-headless \
+                  libgomp1 \
+                  perl \
+                  python2-minimal \
+                  python-is-python2"
+
 RUN apt-get -yqq update &&  \
-    apt-get install -yq --no-install-recommends \
-    default-jre-headless \
-    libgomp1 \
-    perl \
-    python2-minimal \
-    python-is-python2 && \
+    apt-get install -yq --no-install-recommends ${RUNTIME_DEPS} && \
     apt-get autoremove -y && \
     apt-get clean -y
 
