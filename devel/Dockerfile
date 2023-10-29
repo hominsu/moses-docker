@@ -34,15 +34,6 @@ ENV BUILD_DEPS="autoconf    \
 RUN apt-get -yqq update &&  \
     apt-get install -yq --no-install-recommends ${BUILD_DEPS}
 
-# XMLRPC-C http://downloads.sourceforge.net/project/xmlrpc-c/Xmlrpc-c%20Super%20Stable/1.33.17/xmlrpc-c-1.33.17.tgz
-RUN DIR=$(mktemp -d) && cd ${DIR} && \
-    curl -sL http://downloads.sourceforge.net/project/xmlrpc-c/Xmlrpc-c%20Super%20Stable/1.33.17/xmlrpc-c-1.33.17.tgz | \
-    tar -zx --strip-components=1 && \
-    ./configure --prefix="${PREFIX}" && \
-    make -j $(nproc) && \
-    make install && \
-    rm -rf ${DIR}
-
 # CMPH https://sourceforge.net/projects/cmph/files/v2.0.2/cmph-2.0.2.tar.gz/download
 RUN DIR=$(mktemp -d) && cd ${DIR} && \
     curl -sL https://sourceforge.net/projects/cmph/files/v2.0.2/cmph-2.0.2.tar.gz/download | \
@@ -77,7 +68,6 @@ RUN DIR=$(mktemp -d) && cd ${DIR} && \
     tar -zx --strip-components=1 && \
     ./bjam \
     --with-boost=${PREFIX} \
-    --with-xmlrpc-c=${PREFIX} \
     --with-cmph=${PREFIX} \
     --prefix=${MOSES} \
     -j$(nproc) && \
