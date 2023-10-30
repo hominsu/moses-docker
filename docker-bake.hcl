@@ -34,7 +34,7 @@ target "moses-devel" {
     notequal("", VERSION) ? "${REPO}/moses:devel-${VERSION}" : "",
     "${REPO}/moses:devel",
   ]
-  platforms = ["linux/amd64"]
+  platforms = ["linux/amd64", "linux/arm64"]
 }
 
 target "moses-runtime" {
@@ -53,5 +53,5 @@ target "moses-runtime" {
     "${REPO}/moses:runtime",
     "${REPO}/moses:latest",
   ]
-  platforms = ["linux/amd64"]
+  platforms = ["linux/amd64", "linux/arm64"]
 }
