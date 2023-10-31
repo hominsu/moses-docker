@@ -1,6 +1,4 @@
 # syntax=docker/dockerfile:1.4
-ARG REPO
-
 FROM debian:bullseye-slim
 
 # image info
